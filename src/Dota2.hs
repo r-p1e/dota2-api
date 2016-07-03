@@ -5,6 +5,7 @@ module Dota2
 
 import           Data.Proxy          (Proxy (..))
 import           Network.HTTP.Client (Manager)
+import           Servant.API         ((:<|>) (..))
 import           Servant.Client      (BaseUrl (..), ClientM, Scheme (Http),
                                       client)
 
@@ -14,6 +15,8 @@ import           Dota2.Types
 dota2API :: Proxy Dota2API
 dota2API = Proxy
 
+-- | Get league listing.
+-- (<https://wiki.teamfortress.com/wiki/WebAPI/GetLeagueListing see>)
 getLeagueListing
     :: Maybe SteamKey
     -> Maybe Language
@@ -21,4 +24,12 @@ getLeagueListing
     -> BaseUrl
     -> ClientM (Result Leagues)
 
-getLeagueListing = client dota2API
+-- | Get live league games
+-- (<https://wiki.teamfortress.com/wiki/WebAPI/GetLiveLeagueGames see>
+getLiveLeagueGames :: Maybe SteamKey
+                   -> Manager
+                   -> BaseUrl
+                   -> ClientM (Result Games)
+
+
+(getLeagueListing :<|> getLiveLeagueGames) = client dota2API
