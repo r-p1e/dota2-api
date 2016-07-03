@@ -22,6 +22,7 @@ library
                      , base >= 4.7 && < 5
                      , http-api-data
                      , http-client
+                     , scientific
                      , servant
                      , servant-client
                      , text
