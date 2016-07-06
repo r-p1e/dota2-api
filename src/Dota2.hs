@@ -31,5 +31,13 @@ getLiveLeagueGames :: Maybe SteamKey
                    -> BaseUrl
                    -> ClientM (Result Games)
 
+-- | Get match details by given match id
+-- (<https://wiki.teamfortress.com/wiki/WebAPI/GetMatchDetails#Tower_Status see>)
+getMatchDetails :: Maybe SteamKey
+                -> Maybe MatchId
+                -> Manager
+                -> BaseUrl
+                -> ClientM (Result Match)
 
-(getLeagueListing :<|> getLiveLeagueGames) = client dota2API
+(getLeagueListing :<|> getLiveLeagueGames :<|> getMatchDetails) =
+    client dota2API
